@@ -23,13 +23,17 @@ class SearchBar extends Component {
 
     render() {
         return (
-            <div>
-                <h4>Search here</h4>
-                <form onSubmit={this.sendTerm}>
-                    <input type="text" onChange={this.onSearchClick} />
-                    <i className="search icon" onClick={this.sendTerm}></i>
-                </form>
-            </div>
+                <div className="ui search">
+                    <div className="field">
+                        <br /><br />
+                        <label>Search here</label>
+                        <br />
+                        <form className="ui icon input" onSubmit={this.sendTerm}>
+                            <input className="prompt" type="text" placeholder="search videos..." onChange={this.onSearchClick} />
+                            <i className="search icon" onClick={this.sendTerm}></i>
+                        </form>
+                    </div>
+                </div>
         )
     }
 }
