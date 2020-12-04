@@ -3,7 +3,7 @@ import axios from 'axios'
 import SearchBar from './SearchBar'
 import VideoList from './VideoList'
 import VideoDetail from './VideoDetail'
-
+import './App.css'
 class App extends React.Component {
     state = {
         videos: [],
@@ -22,7 +22,7 @@ class App extends React.Component {
     }
 
     getTerm = async (term) => {
-        const response = await axios.get(`https://www.googleapis.com/youtube/v3/search?part=snippet&maxREsult=5&key=AIzaSyBgvAD0MkLtUdbeJa5CNhi-y**********&q=${term}`)
+        const response = await axios.get(`https://www.googleapis.com/youtube/v3/search?part=snippet&maxREsult=5&key=AIzaSyDH7ZHio4N2SHc4z1WbFt3U9SnGqHCNPjU&q=${term}`)
         this.setState({
             videos: response.data.items,
             selectedVideo: response.data.items[0]
@@ -32,7 +32,8 @@ class App extends React.Component {
         return (
             <Fragment>
                 <div className="contTitle ui justified aligned header">
-                    <div className="headi">Youtube</div>
+                    <div className="logo" />
+                    <div className="headi">YouTube</div>
                 </div>
                 <div className="ui container">
                     <SearchBar giveTerm={this.getTerm} />

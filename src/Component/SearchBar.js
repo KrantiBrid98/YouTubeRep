@@ -25,10 +25,9 @@ class SearchBar extends Component {
         return (
                 <div className="ui search">
                     <div className="field">
-                        <br /><br />
-                        <label>Search here</label>
                         <br />
-                        <form className="ui icon input" onSubmit={this.sendTerm}>
+                        <br />
+                        <form className="ui icon input" onSubmit={this.sendTerm} style={{width: `100%`}}>
                             <input className="prompt" type="text" placeholder="search videos..." onChange={this.onSearchClick} />
                             <i className="search icon" onClick={this.sendTerm}></i>
                         </form>
