@@ -4,10 +4,12 @@ import SearchBar from './SearchBar'
 import VideoList from './VideoList'
 import VideoDetail from './VideoDetail'
 import './App.css'
+import Loader from './Loader'
 class App extends React.Component {
     state = {
         videos: [],
-        selectedVideo: ''
+        selectedVideo: '',
+        loader: false
     }
 
     componentDidMount() {
@@ -22,12 +24,27 @@ class App extends React.Component {
     }
 
     getTerm = async (term) => {
-        const response = await axios.get(`https://www.googleapis.com/youtube/v3/search?part=snippet&maxREsult=5&key=AIzaSyDH7ZHio4N2SHc4z1WbFt3U9SnGqHCNPjU&q=${term}`)
-        this.setState({
-            videos: response.data.items,
-            selectedVideo: response.data.items[0]
-        })
+        try {
+            this.setState({
+                ...this.state,
+                loader: true
+             })
+            const response = await axios.get(`https://www.googleapis.com/youtube/v3/search?part=snippet&maxREsult=5&key=AIzaSyDH7ZHio4N2SHc4z1WbFt3U9SnGqHCNPjU&q=${term}`)
+            this.setState({
+                ...this.state,
+                videos: response.data.items,
+                selectedVideo: response.data.items[0]
+            })
+        } catch(e){
+            console.log(e)
+        } finally {
+            this.setState({
+               ...this.state,
+               loader: false
+            })
+        }
     }
+
     render() {
         return (
             <Fragment>
@@ -35,7 +52,7 @@ class App extends React.Component {
                     <div className="logo" />
                     <div className="headi">YouTube</div>
                 </div>
-                <div className="ui container">
+                {!this.state.loader ? <div className="ui container">
                     <SearchBar giveTerm={this.getTerm} />
                     <br />
                     <div className="ui grid">
@@ -48,7 +65,7 @@ class App extends React.Component {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> : <Loader/>}
             </Fragment>
         )
     }
